@@ -33,10 +33,12 @@ jobs:
         run: |
           python setup.py sdist bdist_wheel
 
-      - name: Install cloudsmith CLI
+      - name: Install cloudsmith-cli
         run: |
-          curl -1sLf 'https://dl.cloudsmith.io/public/cloudsmith/cli/setup.deb.sh' | sudo -E bash
-          sudo apt-get install cloudsmith-cli
+          sudo apt-key adv --fetch-keys "https://dl.cloudsmith.io/public/cloudsmith/cli/gpg.155D3F279F1E1C15.key"
+          echo "deb https://dl.cloudsmith.io/public/cloudsmith/cli/deb/debian any main" | sudo tee /etc/apt/sources.list.d/cloudsmith-cli.list
+          sudo apt-get update
+          sudo apt-get install -y cloudsmith-cli
 
       - name: Upload package to Cloudsmith
         env:
