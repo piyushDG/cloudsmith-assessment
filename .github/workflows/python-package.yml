@@ -3,7 +3,7 @@ name: Push Python Package to Cloudsmith
 on:
   push:
     branches:
-      - master  # Replace with your default branch name if different
+      - main  # Replace with your default branch name if different
   schedule:
     # Run every 6 hours
     - cron: '0 0,6,12,18 * * *'
