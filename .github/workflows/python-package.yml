@@ -35,12 +35,12 @@ jobs:
 
       - name: Install cloudsmith CLI
         run: |
-          curl -1sLf 'https://dl.cloudsmith.io/public/cloudsmith/cli/setup.rpm.sh' | sudo -E bash
-          sudo yum install cloudsmith-cli -y
+          curl -1sLf 'https://dl.cloudsmith.io/public/cloudsmith/cli/setup.deb.sh' | sudo -E bash
+          sudo apt-get install cloudsmith-cli
 
       - name: Upload package to Cloudsmith
         env:
           CLOUDSMITH_API_KEY: ${{ secrets.CLOUDSMITH_API_KEY }}
         run: |
-          cloudsmith push python interview-piyush-saraswat/cloudsmith-assessment-piyush-saraswat dist/*.tar.gz
+          cloudsmith push python interview-piyush-saraswat/cloudsmith-assessment-piyush-saraswat dist/*
 
