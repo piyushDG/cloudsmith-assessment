@@ -19,7 +19,7 @@ jobs:
       - name: Install Cloudsmith CLI
         run: |
           curl -1sLf 'https://dl.cloudsmith.io/public/cloudsmith/cli/setup.deb.sh' | sudo -E bash
-          sudo apt-get install -y cloudsmith-cli
+          | sudo apt-get update | sudo apt-get install -y cloudsmith-cli
 
       - name: Set up Python3
         uses: actions/setup-python@v2
