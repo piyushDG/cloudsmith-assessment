@@ -1,46 +1,22 @@
-name: Push Python Package to Cloudsmith
-
-on:
-  push:
-    branches:
-      - master  # Replace with your default branch name if different
-  schedule:
-    # Run every 6 hours
-    - cron: '0 0,6,12,18 * * *'
-
+name: Push Python
+on: push
 jobs:
-  push-python-package:
-    name: Push Python Package
+  push:
     runs-on: ubuntu-latest
+    name: Python Push Demo
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Install Cloudsmith CLI
-        run: |
-          curl -1sLf 'https://dl.cloudsmith.io/public/cloudsmith/cli/setup.deb.sh' | sudo -E bash
-          sudo apt-get update
-          sudo apt-get install -y cloudsmith-cli
-
-      - name: Set up Python3
-        uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - name: Push
+        id: push
+        uses: cloudsmith-io/action@master
         with:
-          python-version: 3.9  # Adjust Python version as needed
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get install -y python3-pip
-          python3 -m pip install --upgrade pip
-          pip install flake8
-
-      - name: Lint with flake8
-        run: |
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-
-      - name: Build Python package
-        run: |
-          python3 setup.py sdist bdist_wheel
+          api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
+          command: "push"
+          format: "python"
+          owner: "cloudsmith"
+          repo: "actions"
+          republish: "true" # needed ONLY if version is not changing
+          file: "test/fixture/cloudsmith-python-example-1.0.0.tar.gz"
 
       - name: Push to Cloudsmith
         env:
