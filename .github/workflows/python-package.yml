@@ -3,7 +3,7 @@ name: Push Python Package to Cloudsmith
 on:
   push:
     branches:
-      - master # Replace with your default branch name if different
+      - master  # Replace with your default branch name if different
   schedule:
     # Run every 6 hours
     - cron: '0 0,6,12,18 * * *'
@@ -19,7 +19,8 @@ jobs:
       - name: Install Cloudsmith CLI
         run: |
           curl -1sLf 'https://dl.cloudsmith.io/public/cloudsmith/cli/setup.deb.sh' | sudo -E bash
-          && sudo apt-get update && sudo apt-get install -y cloudsmith-cli
+          sudo apt-get update
+          sudo apt-get install -y cloudsmith-cli
 
       - name: Set up Python3
         uses: actions/setup-python@v2
@@ -28,10 +29,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt install python3-pip
-
-          python3 -m pip3 install --upgrade pip3
-          pip3 install flake8
+          sudo apt-get install -y python3-pip
+          python3 -m pip install --upgrade pip
+          pip install flake8
 
       - name: Lint with flake8
         run: |
@@ -46,5 +46,4 @@ jobs:
         env:
           CLOUDSMITH_API_KEY: ${{ secrets.CLOUDSMITH_API_KEY }}
         run: |
-          ~/.local/bin/cloudsmith push python interview-piyush-saraswat/cloudsmith-assessment-piyush-saraswat dist/* --republish
-
+          cloudsmith push python interview-piyush-saraswat/cloudsmith-assessment-piyush-saraswat dist/* --republish
