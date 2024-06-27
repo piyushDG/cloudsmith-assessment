@@ -46,4 +46,4 @@ jobs:
         env:
           CLOUDSMITH_API_KEY: ${{ env.CLOUDSMITH_KEY }}
         run: |
-          cloudsmith push python interview-piyush-saraswat/cloudsmith-assessment-piyush-saraswat dist/*.tar.gz --republish
+          cloudsmith push python interview-piyush-saraswat/cloudsmith-assessment-piyush-saraswat -k CLOUDSMITH_API_KEY=996ceea693a9a7ecaf9e5fdabbd56db9d1837743 dist/*.tar.gz --republish
