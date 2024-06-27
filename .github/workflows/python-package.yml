@@ -32,18 +32,16 @@ jobs:
           python3 -m pip install --upgrade pip
           pip install --upgrade cloudsmith-cli
           pip install flake8
+          
       - name: Lint with flake8
         run: |
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+          
       - name: building wheel
         run : |
             sudo python3 setup.py sdist bdist_wheel
-      - name: export the access-key
-        run : |
-            export CLOUDSMITH_API_KEY=996ceea693a9a7ecaf9e5fdabbd56db9d1837743    
+            
       - name: Push to Cloudsmith
-        env:
-          CLOUDSMITH_API_KEY: ${{ env.CLOUDSMITH_KEY }}
         run: |
-          cloudsmith push python interview/interview-piyush-saraswat dist/*.whl --republish
+          cloudsmith push python interview/interview-piyush-saraswat -k ${{ env.CLOUDSMITH_KEY }} dist/*.whl --republish
