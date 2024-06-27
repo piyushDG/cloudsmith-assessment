@@ -5,10 +5,12 @@ jobs:
     runs-on: ubuntu-latest
     name: Python Push Demo
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
       - name: Push
         id: push
-        uses: ./
+        uses: piyushDG/cloudsmith-assessment@master
         with:
           api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
           command: "push"
