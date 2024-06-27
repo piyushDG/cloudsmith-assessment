@@ -44,4 +44,4 @@ jobs:
             
       - name: Push to Cloudsmith
         run: |
-          cloudsmith push python interview/interview-piyush-saraswat -k {{ secrets.CLOUD_API_KEY }} dist/*.whl --republish
+          cloudsmith push python interview/interview-piyush-saraswat -k ${{ secrets.CLOUD_API_KEY }} dist/*.whl --republish
