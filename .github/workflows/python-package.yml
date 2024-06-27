@@ -39,9 +39,13 @@ jobs:
       - name: building wheel
         run : |
             sudo python3 setup.py sdist bdist_wheel
+            
+      - name: echo env
+        run: |
+          echo ${{ secrets.CLOUDSMITH_KEY }}
           
       - name: Push to Cloudsmith
         env:
           CLOUDSMITH_API_KEY: ${{ secrets.CLOUDSMITH_KEY }}
         run: |
-          cloudsmith push python interview-piyush-saraswat/cloudsmith-assessment-piyush-saraswat dist/*.tar.gz --republish
+          cloudsmith push python interview-piyush-saraswat/cloudsmith-assessment-piyush-saraswat -k $CLOUDSMITH_API_KEY dist/*.tar.gz --republish
