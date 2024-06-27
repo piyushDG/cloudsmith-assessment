@@ -39,8 +39,11 @@ jobs:
       - name: building wheel
         run : |
             sudo python3 setup.py sdist bdist_wheel
+      - name: list floder
+        run : ls -a
+        
       - name: Push to Cloudsmith
         env:
           CLOUDSMITH_API_KEY: ${{ secrets.CLOUDSMITH_API_KEY }}
         run: |
-          cloudsmith push python interview-piyush-saraswat/cloudsmith-assessment-piyush-saraswat  --republish
+          cloudsmith push python interview-piyush-saraswat/cloudsmith-assessment-piyush-saraswat dist/  --republish
