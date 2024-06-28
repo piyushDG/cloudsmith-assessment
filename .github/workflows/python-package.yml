@@ -9,26 +9,25 @@ jobs:
   push-python-package:
     name: Push Python Package
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Cloudsmith CLI
         run: |
           curl -1sLf 'https://dl.cloudsmith.io/public/cloudsmith/cli/setup.deb.sh' | sudo -E bash
-          sudo apt-get update
+          sudo apt-get install -y cloudsmith-cli
 
-      - name: Set up Python3
-        uses: actions/setup-python@v2
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.9  # Adjust Python version as needed
+          python-version: '3.9'  # Adjust Python version as needed
 
       - name: Install dependencies
         run: |
-          sudo apt-get install -y python3-pip
-          python3 -m pip install --upgrade pip
-          pip install --upgrade cloudsmith-cli
-          pip install flake8
+          python -m pip install --upgrade pip
+          pip install flake8 setuptools wheel cloudsmith-cli
 
       - name: Lint with flake8
         run: |
@@ -37,7 +36,7 @@ jobs:
 
       - name: Build wheel
         run: |
-          sudo python3 setup.py sdist bdist_wheel
+          python setup.py sdist bdist_wheel
 
       - name: Push to Cloudsmith
         env:
