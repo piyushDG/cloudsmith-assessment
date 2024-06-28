@@ -1,18 +1,12 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="cloudquicklabs1",
-    version="0.0.4",
-    author="Rekhu Chinnarathod",
-    author_email="vrchinnarathod@gmail.com",
-    url="https://www.youtube.com/channel/UCv9MUffHWyo2GgLIDLVu0KQ",
-    description="An application that informs you of the time in different locations and timezones",
+    name='myfirstpythonpackage',
+    version='1.0.1',
     packages=find_packages(),
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
-    install_requires=["click", "pytz"],
-    entry_points={"console_scripts": ["cloudquicklabs1 = src.main:main"]},
+    install_requires=[],
+    author='Piyush Saraswat',
+    author_email='iampiyushsaraswat@gmail.com',
+    description='My First Python Package on Cloudsmith',
+    url='https://github.com/piyushDG/cloudsmith-assessment',
 )
